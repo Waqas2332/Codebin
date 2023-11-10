@@ -40,7 +40,7 @@ export default function Nav() {
             <a
               key={item.name}
               href={item.href}
-              className="font-mono font-semibold leading-6 text-white"
+              className="transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
             >
               {item.name}
             </a>

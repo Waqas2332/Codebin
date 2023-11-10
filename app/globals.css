@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 body {
   background-color: #002b36;
-}
+} */
 .btn {
   background: none;
   border: 1px solid #fff;
@@ -19,4 +19,28 @@ body {
   background-color: #83e5ff;
   color: #002b36;
   border: 1px solid #002b36;
+}
+
+/* Custom underline transition */
+.transition-underline {
+  transition: all 0.3s;
+}
+
+/* Class to add underline on hover */
+.underline-on-hover:hover {
+  text-decoration: underline;
+}
+
+.main-background {
+  background-image: linear-gradient(
+      to bottom right,
+      rgba(0, 45, 56, 0.5),
+      rgba(25, 119, 145, 0.5)
+    ),
+    url("../public/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 70vh;
+  background-size: cover;
 }
