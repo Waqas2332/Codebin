@@ -1,4 +1,3 @@
-import Menu from "@/components/Menu";
 import "./globals.css";
 export const metadata = {
   title: "Codebin Editor",
@@ -9,7 +8,6 @@ export default function NewPageLayout({ children }) {
   return (
     <>
       <main className="min-h-[100vh]">{children}</main>;
-      <Menu />
     </>
   );
 }
