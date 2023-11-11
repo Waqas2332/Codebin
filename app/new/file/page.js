@@ -1,9 +1,9 @@
 export default function page() {
   return (
     <form action="/save" method="post">
-      <div class="wrapper">
-        <div class="line-numbers">&gt;</div>
-        <textarea autofocus name="value" />
+      <div className="wrapper">
+        <div className="line-numbers">&gt;</div>
+        <textarea autoFocus />
       </div>
     </form>
   );
