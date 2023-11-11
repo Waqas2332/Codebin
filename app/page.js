@@ -1,6 +1,11 @@
+import Nav from "@/components/Navbar";
+import Link from "next/link";
+import Footer from "@/components/Footer";
+
 export default function page() {
   return (
     <>
+      <Nav />
       <main className=" main-background text-white flex flex-col justify-center items-center  min-h-screen">
         <div className="w-[70%] flex flex-col justify-center items-center gap-3">
           <h2 className="text-3xl font-mono text-center ">
@@ -14,9 +19,12 @@ export default function page() {
             collaboration, and unleash your coding prowess, all in one stylish,
             intuitive platform.
           </p>
-          <button className="btn w-32 font-mono">Go to Editor</button>
+          <Link className="btn w-32 font-mono" href="/new/file">
+            Go to Editor
+          </Link>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

@@ -1,6 +1,4 @@
-import Nav from "@/components/Navbar";
 import "./globals.css";
-import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,9 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Nav />
-        <main className="min-h-[70vh]">{children}</main>
-        <Footer />
+        <main className="min-h-[100vh]">{children}</main>
       </body>
     </html>
   );
