@@ -2,11 +2,10 @@
 import Menu from "@/components/Menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import hljs from "highlight.js/lib/common";
+import hljs from "highlight.js";
 
 export default function page({ params }) {
   const [value, setValue] = useState("");
-  const [code, setCode] = useState("");
   useEffect(() => {
     async function getData() {
       const response = await axios.get(`/api/document/${params.id}`);
@@ -35,6 +34,7 @@ export default function page({ params }) {
           <code id="code-display">{value}</code>
         </pre>
       </div>
+      <Menu />
     </>
   );
 }
