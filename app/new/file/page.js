@@ -2,14 +2,19 @@
 import Menu from "@/components/Menu";
 import axios from "axios";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
+
 export default function page() {
+  const router = useRouter();
   const inputRef = useRef();
   async function handleSave() {
     try {
       const response = await axios.post("/api/document", {
         value: inputRef.current.value,
       });
-      console.log(response);
+      if (response.status === 201) {
+        router.push(`/new/file/${response.data.id}`);
+      }
     } catch (error) {
       console.log(error);
     }
