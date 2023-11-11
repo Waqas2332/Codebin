@@ -23,3 +23,12 @@ textarea {
   border: none;
   outline: none;
 }
+
+pre {
+  margin: 0;
+}
+
+#code-display {
+  padding-top: 0;
+  padding-bottom: 0;
+}

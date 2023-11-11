@@ -2,9 +2,11 @@
 import Menu from "@/components/Menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import hljs from "highlight.js/lib/common";
 
 export default function page({ params }) {
   const [value, setValue] = useState("");
+  const [code, setCode] = useState("");
   useEffect(() => {
     async function getData() {
       const response = await axios.get(`/api/document/${params.id}`);
@@ -17,12 +19,22 @@ export default function page({ params }) {
     getData();
   }, []);
 
+  useEffect(() => {
+    hljs.highlightAll();
+  }, [value]);
+
   return (
-    <div>
-      <pre>
-        <code>{value}</code>
-      </pre>
-      <Menu />
-    </div>
+    <>
+      <div class="wrapper">
+        <div class="line-numbers">
+          {value.split("\n").map((_, index) => (
+            <div key={index}>{index + 1}</div>
+          ))}
+        </div>
+        <pre>
+          <code id="code-display">{value}</code>
+        </pre>
+      </div>
+    </>
   );
 }
