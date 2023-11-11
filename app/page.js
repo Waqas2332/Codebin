@@ -8,7 +8,7 @@ export default function page() {
       <Nav />
       <main className=" main-background text-white flex flex-col justify-center items-center  min-h-screen">
         <div className="w-[70%] flex flex-col justify-center items-center gap-3">
-          <h2 className="text-3xl font-mono text-center ">
+          <h2 className="text-3xl font-mono text-center">
             Store, Share, Inspire: Your Code Hub
           </h2>
           <p className="font-mono text-center text-sm">

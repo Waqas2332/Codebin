@@ -2,7 +2,8 @@
 import Menu from "@/components/Menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import hljs from "highlight.js";
+import hljs from "highlight.js/lib/core";
+import "../../../solarized-dark.css";
 
 export default function page({ params }) {
   const [value, setValue] = useState("");
@@ -19,13 +20,13 @@ export default function page({ params }) {
   }, []);
 
   useEffect(() => {
-    hljs.highlightAll();
-  }, [value]);
+    if (typeof window !== undefined) hljs.highlightAll();
+  }, []);
 
   return (
     <>
-      <div class="wrapper">
-        <div class="line-numbers">
+      <div className="wrapper">
+        <div className="line-numbers">
           {value.split("\n").map((_, index) => (
             <div key={index}>{index + 1}</div>
           ))}
