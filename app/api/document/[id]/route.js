@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { NextResponse, NextRequest } from "next/server";
-import Document from "@/models/document";
 import { connect } from "@/utils/dbConnect";
+import DocumentFile from "@/models/documentFile";
 
 connect();
 export async function GET(request, context) {
@@ -14,11 +14,12 @@ export async function GET(request, context) {
         { status: 404 }
       );
     }
-    const response = await Document.findById(context.params.id);
+    const response = await DocumentFile.findById(context.params.id);
     return NextResponse.json(
       {
         message: "Data Fetched Succesfully",
         value: response.value,
+        programmingLanguage: response.programmingLanguage,
       },
       { status: 200 }
     );
