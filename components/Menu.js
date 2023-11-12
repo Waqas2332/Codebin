@@ -1,14 +1,16 @@
 import { IoSaveOutline } from "react-icons/io5";
 import { BiDuplicate } from "react-icons/bi";
 import { VscNewFile } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
 import Icon from "./Icons";
 export default function Menu({ onSave }) {
+  const router = useRouter();
   const ICONLIST = [
     {
       icon: <VscNewFile />,
       text: "New File",
       onClick: () => {
-        console.log("Clicked");
+        router.replace("/new/file");
       },
     },
     { icon: <IoSaveOutline />, text: "Save", onClick: onSave },
