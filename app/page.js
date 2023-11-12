@@ -19,7 +19,7 @@ export default function page() {
             collaboration, and unleash your coding prowess, all in one stylish,
             intuitive platform.
           </p>
-          <Link className="btn w-32 font-mono" href="/new/file">
+          <Link className="btn w-32 font-mono text-center" href="/new/file">
             Go to Editor
           </Link>
         </div>

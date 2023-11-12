@@ -6,7 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import Link from "next/link";
 
-const navigation = [{ name: "Go To Editor", href: "#" }];
+const navigation = [{ name: "Go To Editor", href: "/new/file" }];
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
