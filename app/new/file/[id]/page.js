@@ -3,10 +3,11 @@ import Menu from "@/components/Menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { solarizedDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export default function page({ params }) {
   const [value, setValue] = useState("");
+  const [language, setLanguage] = useState("");
   useEffect(() => {
     async function getData() {
       const response = await axios.get(`/api/document/${params.id}`);
@@ -15,6 +16,7 @@ export default function page({ params }) {
         return;
       }
       setValue(response.data.value);
+      setLanguage(response.data.programmingLanguage);
     }
     getData();
   }, []);
@@ -29,7 +31,9 @@ export default function page({ params }) {
         </div>
         <pre>
           <code id="code-display">
-            <SyntaxHighlighter style={dracula}>{value}</SyntaxHighlighter>
+            <SyntaxHighlighter style={solarizedDark} language={language}>
+              {value}
+            </SyntaxHighlighter>
           </code>
         </pre>
       </div>
