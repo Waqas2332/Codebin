@@ -1,7 +1,8 @@
 import { Dialog } from "@headlessui/react";
 import { useState } from "react";
+import Spinner from "./Spinner";
 
-function ModalComponent({ isOpen, setIsOpen, onSave }) {
+function ModalComponent({ isOpen, setIsOpen, onSave, isLoading }) {
   const [description, setdescription] = useState("");
   const [programmingLanguage, setProgrammingLanguage] = useState("");
 
@@ -23,7 +24,7 @@ function ModalComponent({ isOpen, setIsOpen, onSave }) {
                 id="description"
                 value={description}
                 onChange={(e) => setdescription(e.target.value)}
-                className="border border-gray-300 p-2 rounded"
+                className="border border-gray-300 w-full p-2 rounded"
               />
             </div>
             <div className="">
@@ -32,6 +33,7 @@ function ModalComponent({ isOpen, setIsOpen, onSave }) {
                 className="block font-semibold"
               >
                 Programming Language:
+                <small>(Enter Full Name eg javascript , python)</small>
               </label>
               <input
                 type="text"
@@ -46,7 +48,7 @@ function ModalComponent({ isOpen, setIsOpen, onSave }) {
                 onClick={handleSubmit}
                 className="bg-blue-500 text-white p-2 rounded"
               >
-                Submit
+                {isLoading ? <Spinner /> : "Save"}
               </button>
               <button
                 onClick={() => setIsOpen(false)}

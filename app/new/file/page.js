@@ -7,16 +7,19 @@ import ModalComponent from "@/components/FormModal";
 
 export default function page() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const inputRef = useRef();
   async function handleFormSave(data) {
+    setIsLoading(true);
     try {
       const response = await axios.post("/api/document", {
         value: inputRef.current.value,
         description: data.description,
-        programmingLanguage: data.programmingLanguage,
+        programmingLanguage: data.programmingLanguage.toLowerCase(),
       });
       if (response.status === 201) {
+        setIsLoading(false);
         router.push(`/new/file/${response.data.id}`);
       }
     } catch (error) {
@@ -37,6 +40,7 @@ export default function page() {
       </form>
       <Menu onSave={handleSave} />
       <ModalComponent
+        isLoading={isLoading}
         isOpen={modalOpen}
         onSave={handleFormSave}
         setIsOpen={setModalOpen}
