@@ -10,6 +10,7 @@ body {
 .line-numbers {
   color: #7d7d7d;
   font-family: monospace;
+  margin-top: 10px;
   text-align: end;
 }
 textarea {

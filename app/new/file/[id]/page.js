@@ -2,8 +2,8 @@
 import Menu from "@/components/Menu";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import hljs from "highlight.js/lib/core";
-import "../../../solarized-dark.css";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 export default function page({ params }) {
   const [value, setValue] = useState("");
@@ -19,10 +19,6 @@ export default function page({ params }) {
     getData();
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== undefined) hljs.highlightAll();
-  }, []);
-
   return (
     <>
       <div className="wrapper">
@@ -32,7 +28,9 @@ export default function page({ params }) {
           ))}
         </div>
         <pre>
-          <code id="code-display">{value}</code>
+          <code id="code-display">
+            <SyntaxHighlighter style={dracula}>{value}</SyntaxHighlighter>
+          </code>
         </pre>
       </div>
       <Menu />
