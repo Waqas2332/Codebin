@@ -3,25 +3,38 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userData = { email, password };
     try {
       const response = await axios.post("/api/auth/signin", userData);
-      console.log(response);
+      Swal.fire({
+        icon: "success",
+        text: response.data.message,
+      }).then(() => {
+        router.push("/");
+      });
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.response.data.message,
+        footer: '<a href="/signup">Create New Account</a>',
+      });
     }
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <form className="w-full max-w-sm">
+      <form onSubmit={(e) => handleSubmit(e)} className="w-full max-w-sm">
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -55,10 +68,7 @@ export default function Signin() {
           />
         </div>
         <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Sign In
           </button>
           <Link
