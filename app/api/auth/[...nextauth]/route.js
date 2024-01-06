@@ -32,6 +32,12 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  session: {
+    jwt: true,
+    // Customize JWT options if needed
+    // Example: Set a custom JWT duration
+    maxAge: 24 * 60 * 60, // 24 hours
+  },
 };
 
 export const handler = NextAuth(authOptions);
