@@ -6,6 +6,7 @@ import { connect } from "@/utils/dbConnect";
 
 export const authOptions = {
   // Configure one or more authentication providers
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -33,7 +34,6 @@ export const authOptions = {
     // ...add more providers here
   ],
   session: {
-    jwt: true,
     // Customize JWT options if needed
     // Example: Set a custom JWT duration
     maxAge: 24 * 60 * 60, // 24 hours

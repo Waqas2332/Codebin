@@ -3,10 +3,10 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { getServerSession } from "next-auth";
 
-export default function page() {
-  const session = getServerSession();
+export default async function page() {
+  const session = await getServerSession();
 
-  console.log(session.user);
+  console.log(session?.user);
   return (
     <>
       <Nav />
