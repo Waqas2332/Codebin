@@ -2,33 +2,42 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const session = useSession();
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      router.replace("/");
+    }
+  }, [session, router]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userData = { email, password };
-    try {
-      const response = await axios.post("/api/auth/signin", userData);
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    if (res.error) {
       Swal.fire({
-        icon: "success",
-        text: response.data.message,
-      }).then(() => {
-        router.push("/");
-      });
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
+        icon: "Error",
         title: "Oops...",
-        text: error.response.data.message,
-        footer: '<a href="/signup">Create New Account</a>',
+        text: "Invalid Credentials",
+        footer: '<a href="/signin">Try Signing In</a>',
       });
+    }
+    if (res.url) {
+      router.push("/");
     }
   };
   return (

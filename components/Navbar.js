@@ -5,11 +5,26 @@ import { FiMenu } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
-const navigation = [{ name: "Go To Editor", href: "/new/file" }];
+const guestNavigation = [{ name: "Go To Editor", href: "/new/file" }];
+
+const authNavigation = [
+  ...guestNavigation,
+  // TODO have to Replace HARD CODED links
+  {
+    name: "View Saved Files",
+    href: "/ALL_FILES",
+  },
+  {
+    name: "Starred Files",
+    href: "/STARRED",
+  },
+];
 
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <header className="text-white bg-[#0081a2] sticky inset-x-0  top-0 z-50">
@@ -36,20 +51,39 @@ export default function Nav() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
-            >
-              {item.name}
-            </a>
-          ))}
+          {!session
+            ? guestNavigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
+                >
+                  {item.name}
+                </a>
+              ))
+            : authNavigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
+                >
+                  {item.name}
+                </a>
+              ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link href="/signin" className="btn">
-            Login
-          </Link>
+          {!session ? (
+            <Link href="/signin" className="btn">
+              Login
+            </Link>
+          ) : (
+            <>
+              {session.user?.name}
+              <button onClick={() => signOut()} className="btn">
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </nav>
       <Dialog
@@ -78,21 +112,40 @@ export default function Nav() {
           </div>
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white "
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+              <div className="space-y-2 py-6 flex flex-col">
+                {!session
+                  ? guestNavigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="block transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
+                      >
+                        {item.name}
+                      </a>
+                    ))
+                  : authNavigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="transition-underline underline-on-hover font-mono font-semibold leading-6 text-white"
+                      >
+                        {item.name}
+                      </a>
+                    ))}
               </div>
               <div className="py-6">
-                <Link href="/signin" className="btn">
-                  Login
-                </Link>
+                {!session ? (
+                  <Link href="/signin" className="btn">
+                    Login
+                  </Link>
+                ) : (
+                  <>
+                    {session.user?.name} <br />
+                    <button onClick={() => signOut()} className="btn">
+                      Logout
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>

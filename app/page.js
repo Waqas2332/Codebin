@@ -1,8 +1,12 @@
 import Nav from "@/components/Navbar";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import { getServerSession } from "next-auth";
 
 export default function page() {
+  const session = getServerSession();
+
+  console.log(session.user);
   return (
     <>
       <Nav />
