@@ -160,7 +160,6 @@ export default function Nav() {
                   </Link>
                 ) : (
                   <>
-                    {session.user?.name} <br />
                     <button onClick={() => signOut()} className="btn">
                       Logout
                     </button>
