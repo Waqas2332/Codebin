@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
+import Avatar from "./Avatar";
 
 const guestNavigation = [{ name: "Go To Editor", href: "/new/file" }];
 
@@ -25,6 +26,17 @@ const authNavigation = [
 export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalOpen((prevState) => !prevState);
+  };
+
+  if (isModalOpen) {
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 3000);
+  }
 
   return (
     <header className="text-white bg-[#0081a2] sticky inset-x-0  top-0 z-50">
@@ -78,10 +90,18 @@ export default function Nav() {
             </Link>
           ) : (
             <>
-              {session.user?.name}
-              <button onClick={() => signOut()} className="btn">
-                Logout
-              </button>
+              <Avatar onModalToggle={toggleModal}>
+                {session.user?.name.charAt(0).toUpperCase()}
+              </Avatar>
+              {isModalOpen && (
+                <div className="absolute right-0 mt-8 z-50">
+                  <div className="z-50  p-4 rounded-lg shadow-lg">
+                    <button onClick={() => signOut()} className="btn">
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>
