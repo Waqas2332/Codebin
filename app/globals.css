@@ -1,46 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
 body {
-  background-color: #002b36;
-} */
-.btn {
-  background: none;
-  border: 1px solid #fff;
-  color: #fff;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  transition: background-color 200ms ease-in-out;
-  display: inline-block;
-  text-decoration: none;
-}
-.btn:hover {
-  background-color: #83e5ff;
-  color: #002b36;
-  border: 1px solid #002b36;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-/* Custom underline transition */
-.transition-underline {
-  transition: all 0.3s;
-}
-
-/* Class to add underline on hover */
-.underline-on-hover:hover {
-  text-decoration: underline;
-}
-
-.main-background {
-  background-image: linear-gradient(
-      to bottom right,
-      rgba(0, 45, 56, 0.5),
-      rgba(25, 119, 145, 0.5)
-    ),
-    url("../public/background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 70vh;
-  background-size: cover;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }

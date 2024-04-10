@@ -1,5 +1,5 @@
 {
-  "name": "code-bin",
+  "name": "codebin",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,28 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
-    "axios": "^1.6.1",
-    "bcryptjs": "^2.4.3",
-    "heroicons-react": "^1.4.1",
-    "highlight.js": "^11.9.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.0.0",
-    "next": "14.0.2",
-    "next-auth": "^4.24.5",
-    "prism-react-renderer": "^2.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-icons": "^4.11.0",
-    "react-query": "^3.39.3",
-    "react-syntax-highlighter": "^15.5.0",
-    "sweetalert2": "^11.10.2"
+    "next": "14.1.4"
   },
   "devDependencies": {
-    "@types/react": "18.2.46",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.0.2",
     "postcss": "^8",
     "tailwindcss": "^3.3.0"
   }
