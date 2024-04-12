@@ -4,7 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type LoginFormValues = {
   email: string;
@@ -12,6 +13,13 @@ type LoginFormValues = {
 };
 
 const Login: React.FC = () => {
+  const session = useSession();
+  const router = useRouter();
+
+  if (session) {
+    router.push("/");
+  }
+
   const {
     register,
     handleSubmit,

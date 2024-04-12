@@ -5,6 +5,7 @@ import { FiMenu } from "react-icons/fi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 // import { signOut, useSession } from "next-auth/react";
 import Avatar from "./Avatar";
 
@@ -26,9 +27,8 @@ const authNavigation = [
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  //   const { data: session } = useSession();
+  const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [session, setSession] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen((prevState) => !prevState);
