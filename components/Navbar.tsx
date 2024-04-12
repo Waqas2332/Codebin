@@ -117,7 +117,7 @@ export default function Nav() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {!session ? (
             <Link
-              href="/signin"
+              href="/auth/login"
               className={`${isScrolled ? "btn-primary " : "btn"} w-28 scale`}
             >
               Login
