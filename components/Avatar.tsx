@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { ReactNode } from "react";
 
 type AvatarProps = {
-  children: ReactNode;
+  children: any;
   onModalToggle: () => void;
 };
 
@@ -11,7 +12,17 @@ const Avatar = ({ children, onModalToggle }: AvatarProps) => {
       onClick={onModalToggle}
       className="flex items-center justify-center w-10 h-10 rounded-full border-white border-2 bg-transparent  focus:outline-none"
     >
-      {children}
+      {children?.length > 1 ? (
+        <img
+          src={children}
+          width={0}
+          height={0}
+          alt="user"
+          className="w-full rounded-full object-cover"
+        />
+      ) : (
+        children
+      )}
     </button>
   );
 };

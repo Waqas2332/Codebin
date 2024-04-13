@@ -6,7 +6,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-// import { signOut, useSession } from "next-auth/react";
 import Avatar from "./Avatar";
 
 const guestNavigation = [{ name: "Go To Editor", href: "/new/file" }];
@@ -29,6 +28,8 @@ export default function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  console.log(session);
 
   const toggleModal = () => {
     setIsModalOpen((prevState) => !prevState);
@@ -124,7 +125,11 @@ export default function Nav() {
             </Link>
           ) : (
             <>
-              <Avatar onModalToggle={toggleModal}>W</Avatar>
+              <Avatar onModalToggle={toggleModal}>
+                {session.user?.image
+                  ? session.user.image
+                  : session.user?.name?.charAt(0)}
+              </Avatar>
               {isModalOpen && (
                 <div className="absolute right-0 mt-8 z-50">
                   <div className="z-50  p-4 rounded-lg shadow-lg">
