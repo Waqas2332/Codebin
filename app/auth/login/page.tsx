@@ -2,7 +2,6 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -71,16 +70,10 @@ const Login: React.FC = () => {
           </button>
         </form>
         {/* TODO add OR markup */}
-        <div className="mt-8 gap-2 flex justify-between items-center">
-          <button
-            onClick={() => handleSignIn("github")}
-            className="w-1/2 flex justify-center items-center border py-3 rounded"
-          >
-            <FaGithub size={28} />
-          </button>
+        <div className="mt-4 gap-2 flex justify-between items-center">
           <button
             onClick={() => handleSignIn("google")}
-            className="w-1/2 border py-3 rounded flex justify-center items-center"
+            className="w-full border py-3 rounded flex justify-center items-center"
           >
             <FcGoogle size={28} />
           </button>
