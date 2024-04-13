@@ -1,4 +1,6 @@
 import { type ReactNode } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import AuthProvider from "@/components/AuthProvider";
 import "./globals.css";
@@ -16,7 +18,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
-        <script
+        {/* <script
           src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
           integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
           crossOrigin="anonymous"
@@ -28,10 +30,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           integrity="sha512-kBHeOXtsKtA97/1O3ebZzWRIwiWEOmdrylPrOo3D2+pGhq1m+1CroSOVErIlsqn1xmYowKfQNVDhsczIzeLpmg=="
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
-        ></link>
+        ></link> */}
       </head>
       <body>
         <AuthProvider>
+          <ToastContainer />
           <main className="min-h-[100vh] hero">{children}</main>
         </AuthProvider>
       </body>

@@ -1,16 +1,22 @@
 import { IoSaveOutline } from "react-icons/io5";
 import { BiDuplicate } from "react-icons/bi";
 import { VscNewFile } from "react-icons/vsc";
-import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { usePathname, useRouter } from "next/navigation";
 import Icon from "./Icons";
 export default function Menu({ onSave }) {
   const router = useRouter();
+  const pathname = usePathname();
+
   const ICONLIST = [
     {
       icon: <VscNewFile />,
       text: "New File",
       onClick: () => {
-        router.replace("/new/file");
+        if (pathname === "/new/file") {
+          toast.info("Already on New File Page");
+        }
+        router.push("/new/file");
       },
     },
     { icon: <IoSaveOutline />, text: "Save", onClick: onSave },
@@ -24,7 +30,7 @@ export default function Menu({ onSave }) {
   ];
   return (
     <div className="w-[100%] opacity-30 hover:opacity-100 transition-all fixed bottom-8">
-      <nav className="w-[50%] max-sm:w-[75%] m-auto rounded-full bg-[#0081a2] h-12">
+      <nav className="w-[50%] max-sm:w-[75%] m-auto rounded-full bg-white h-12">
         <ul className="flex justify-evenly items-center h-8">
           {ICONLIST.map((icon) => (
             <Icon key={icon.text} text={icon.text} onClick={icon.onClick}>

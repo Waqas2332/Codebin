@@ -38,7 +38,7 @@ export default function page() {
       <form>
         <div className="wrapper">
           <div className="line-numbers">&gt;</div>
-          <textarea autoFocus ref={inputRef} className="mt-3" />
+          <textarea autoFocus ref={inputRef} className="mt-3 text-white" />
         </div>
       </form>
       <Menu onSave={handleSave} />

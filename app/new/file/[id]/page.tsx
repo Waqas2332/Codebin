@@ -4,7 +4,8 @@ import Spinner from "@/components/Spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { solarizedDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { toast } from "react-toastify";
 
 export default function page({ params }: any) {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,15 +40,19 @@ export default function page({ params }: any) {
             ))}
           </div>
           <pre>
-            <code id="code-display">
-              <SyntaxHighlighter style={solarizedDark} language={language}>
+            <code id="code-display" className="bg-white">
+              <SyntaxHighlighter style={dracula} language={language}>
                 {value}
               </SyntaxHighlighter>
             </code>
           </pre>
         </div>
       )}
-      <Menu />
+      <Menu
+        onSave={() => {
+          toast.info("Edit for Saving the file");
+        }}
+      />
     </>
   );
 }
