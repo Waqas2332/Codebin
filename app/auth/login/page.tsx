@@ -16,10 +16,6 @@ const Login: React.FC = () => {
   const session = useSession();
   const router = useRouter();
 
-  if (session) {
-    router.push("/");
-  }
-
   const {
     register,
     handleSubmit,
@@ -28,6 +24,13 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     console.log(data); // Handle form submission here
+  };
+
+  const handleSignIn = async (provider: string) => {
+    await signIn(provider, {
+      redirect: false,
+      callbackUrl: "/",
+    });
   };
 
   return (
@@ -70,13 +73,13 @@ const Login: React.FC = () => {
         {/* TODO add OR markup */}
         <div className="mt-8 gap-2 flex justify-between items-center">
           <button
-            onClick={() => signIn("github")}
+            onClick={() => handleSignIn("github")}
             className="w-1/2 flex justify-center items-center border py-3 rounded"
           >
             <FaGithub size={28} />
           </button>
           <button
-            onClick={() => signIn("google")}
+            onClick={() => handleSignIn("google")}
             className="w-1/2 border py-3 rounded flex justify-center items-center"
           >
             <FcGoogle size={28} />
