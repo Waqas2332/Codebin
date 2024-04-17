@@ -2,10 +2,17 @@
 import { Menu, Transition } from "@headlessui/react";
 import Avatar from "./Avatar";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AvatarList({ children }: any) {
+  const router = useRouter();
+
   const handleLogout = async () => {
     await signOut({ redirect: true, callbackUrl: "/" });
+  };
+
+  const handleRedirects = (url: string) => {
+    router.push(url);
   };
 
   return (
@@ -26,14 +33,17 @@ export default function AvatarList({ children }: any) {
           leaveTo="transform opacity-0 scale-95"
           className="absolute right-4 top-6 w-56 text-bgPrimary border-2 rounded-lg bg-white"
         >
-          <div className="cursor-pointer rounded-lg p-3 hover:bg-bgPrimary hover:text-white">
+          <div
+            onClick={() => handleRedirects("/dashboard")}
+            className="cursor-pointer rounded-lg p-3 hover:bg-bgPrimary hover:text-white"
+          >
             Dashboard
           </div>
           <div className="cursor-pointer rounded-lg p-3 hover:bg-bgPrimary hover:text-white">
-            Dashboard
+            Starred Files
           </div>
           <div className="cursor-pointer rounded-lg p-3">
-            <button onClick={handleLogout} className="btn-primary w-32">
+            <button onClick={handleLogout} className="btn-primary w-full">
               Logout
             </button>
           </div>
