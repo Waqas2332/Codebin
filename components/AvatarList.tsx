@@ -1,8 +1,13 @@
 "use client";
 import { Menu, Transition } from "@headlessui/react";
 import Avatar from "./Avatar";
+import { signOut } from "next-auth/react";
 
 export default function AvatarList({ children }: any) {
+  const handleLogout = async () => {
+    await signOut({ redirect: false, callbackUrl: "/" });
+  };
+
   return (
     <div className="text-right relative ">
       <Menu as="div" className="inline-block text-left">
@@ -27,8 +32,10 @@ export default function AvatarList({ children }: any) {
           <div className="cursor-pointer rounded-lg p-3 hover:bg-bgPrimary hover:text-white">
             Dashboard
           </div>
-          <div className="cursor-pointer rounded-lg p-3 hover:bg-bgPrimary hover:text-white">
-            Dashboard
+          <div className="cursor-pointer rounded-lg p-3">
+            <button onClick={handleLogout} className="btn-primary w-32">
+              Logout
+            </button>
           </div>
         </Transition>
       </Menu>
