@@ -12,7 +12,6 @@ type LoginFormValues = {
 };
 
 const Login: React.FC = () => {
-  const session = useSession();
   const router = useRouter();
 
   const {
@@ -28,7 +27,7 @@ const Login: React.FC = () => {
   const handleSignIn = async (provider: string) => {
     await signIn(provider, {
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     });
   };
 

@@ -92,27 +92,29 @@ export default function Nav() {
           </button>
         </div>
 
-        <div className="hidden ms-auto lg:flex items-center lg:gap-x-12">
+        <div className="nav-links hidden ms-auto lg:flex items-center lg:gap-x-12">
           {!session
             ? guestNavigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
-                  className={`transition-underline underline-on-hover   font-semibold leading-6 ${
+                  className={` font-semibold leading-6 ${
+                    isScrolled ? "text-bgPrimary " : "text-white "
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))
+            : authNavigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`font-semibold leading-6 ${
                     isScrolled ? "text-bgPrimary" : "text-white"
                   } `}
                 >
                   {item.name}
-                </a>
-              ))
-            : authNavigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="transition-underline underline-on-hover   font-semibold leading-6 text-white"
-                >
-                  {item.name}
-                </a>
+                </Link>
               ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
