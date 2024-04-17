@@ -5,12 +5,23 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import ModalComponent from "@/components/FormModal";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
+import Spinner from "@/components/Spinner";
 
 export default function page() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { data: session, status } = useSession();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  if (status == "loading") {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   async function handleFormSave(data: {
     description: string;
@@ -27,6 +38,7 @@ export default function page() {
         value: inputRef!.current!.value,
         description: data.description,
         programmingLanguage: data.programmingLanguage.toLowerCase(),
+        user: session ? session.user : null,
       });
       if (response.status === 201) {
         toast.success("Document Saved Successfully");

@@ -13,6 +13,10 @@ const documentFileSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please Specify Programming Language"],
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const DocumentFile =

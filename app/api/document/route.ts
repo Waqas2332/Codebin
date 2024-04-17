@@ -6,11 +6,11 @@ export async function POST(request: NextRequest) {
   connectDB();
   try {
     const data = await request.json();
-    console.log(data);
     const response = await DocumentFile.create({
       value: data.value,
       description: data.description,
       programmingLanguage: data.programmingLanguage,
+      user: data?.user?.id,
     });
     console.log(response);
     return NextResponse.json(
@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ ok: false }, { status: 403 });
   }
 }
