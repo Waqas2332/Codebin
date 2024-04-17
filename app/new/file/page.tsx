@@ -4,16 +4,23 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import ModalComponent from "@/components/FormModal";
+import { toast } from "react-toastify";
 
 export default function page() {
   const [modalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+
   async function handleFormSave(data: {
     description: string;
     programmingLanguage: string;
   }) {
+    if (inputRef.current?.value.trim() === "") {
+      toast.warning("Please Paste Some Code");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const response = await axios.post("/api/document", {
@@ -22,11 +29,17 @@ export default function page() {
         programmingLanguage: data.programmingLanguage.toLowerCase(),
       });
       if (response.status === 201) {
-        setIsLoading(false);
+        toast.success("Document Saved Successfully");
         router.push(`/new/file/${response.data.id}`);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.response.status === 403) {
+        toast.error("Please Fill All Fields Correctly");
+      } else {
+        toast.error("Couldn't save file. Try Again Later");
+      }
+    } finally {
+      setIsLoading(false);
     }
   }
   function handleSave() {

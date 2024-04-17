@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/config/dbConnect";
 import DocumentFile from "@/models/documentFile";
-import { NextPageContext } from "next";
 
-export async function GET(request: NextRequest, context) {
+export async function GET(request: NextRequest, context: any) {
   try {
     await connectDB();
     if (!mongoose.Types.ObjectId.isValid(context.params.id)) {

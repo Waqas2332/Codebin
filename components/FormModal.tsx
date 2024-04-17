@@ -1,6 +1,7 @@
 import { Dialog } from "@headlessui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import Spinner from "./Spinner";
+import { toast } from "react-toastify";
 
 type ModalComponentProps = {
   isOpen: boolean;
@@ -19,6 +20,15 @@ function ModalComponent({
   const [programmingLanguage, setProgrammingLanguage] = useState("");
 
   const handleSubmit = () => {
+    if (description.trim() === "") {
+      toast.error("Please Enter File Description");
+      return;
+    }
+    if (programmingLanguage.trim() === "") {
+      toast.error("Please Specify Programming Language");
+      return;
+    }
+
     onSave({ description, programmingLanguage });
   };
   return (
@@ -40,6 +50,7 @@ function ModalComponent({
               />
             </div>
             <div className="space-y-2">
+              {/* TODO Have to made a dropdown for selective programming language */}
               <label
                 htmlFor="programmingLanguage"
                 className="block font-semibold"
