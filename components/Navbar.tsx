@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Avatar from "./Avatar";
+import AvatarList from "./AvatarList";
 
 const guestNavigation = [{ name: "Go To Editor", href: "/new/file" }];
 
@@ -127,18 +128,11 @@ export default function Nav() {
             </Link>
           ) : (
             <>
-              <Avatar onModalToggle={toggleModal}>
+              <AvatarList onModalToggle={toggleModal}>
                 {session.user?.image
                   ? session.user.image
                   : session.user?.name?.charAt(0)}
-              </Avatar>
-              {isModalOpen && (
-                <div className="absolute right-0 mt-8 z-50">
-                  <div className="z-50  p-4 rounded-lg shadow-lg">
-                    <button className="btn">Logout</button>
-                  </div>
-                </div>
-              )}
+              </AvatarList>
             </>
           )}
         </div>

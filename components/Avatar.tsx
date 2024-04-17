@@ -3,15 +3,11 @@ import { ReactNode } from "react";
 
 type AvatarProps = {
   children: any;
-  onModalToggle: () => void;
 };
 
-const Avatar = ({ children, onModalToggle }: AvatarProps) => {
+const Avatar = ({ children }: AvatarProps) => {
   return (
-    <button
-      onClick={onModalToggle}
-      className="flex items-center justify-center w-10 h-10 rounded-full border-white border-2 bg-transparent  focus:outline-none"
-    >
+    <button className="flex items-center justify-center w-10 h-10 rounded-full border-white border-2 bg-transparent  focus:outline-none">
       {children?.length > 1 ? (
         <img
           src={children}
