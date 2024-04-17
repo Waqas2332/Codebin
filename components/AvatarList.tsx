@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 
 export default function AvatarList({ children }: any) {
   const handleLogout = async () => {
-    await signOut({ redirect: false, callbackUrl: "/" });
+    await signOut({ redirect: true, callbackUrl: "/" });
   };
 
   return (
