@@ -72,9 +72,10 @@ const Login: React.FC = () => {
         <div className="mt-4 gap-2 flex justify-between items-center">
           <button
             onClick={() => handleSignIn("google")}
-            className="w-full border py-3 rounded flex justify-center items-center"
+            className="w-full border py-3 rounded flex gap-4 justify-center items-center"
           >
             <FcGoogle size={28} />
+            <span>Login with Google</span>
           </button>
         </div>
         <p className="mt-3 text-center text-sm">
