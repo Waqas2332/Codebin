@@ -1,5 +1,8 @@
 import connectDB from "@/config/dbConnect";
 import User from "@/models/User";
+import Credentials, {
+  CredentialsProvider,
+} from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { type AuthOptions } from "next-auth";
 
@@ -14,6 +17,25 @@ export const authOptions: AuthOptions = {
           access_type: "offline",
           response_type: "code",
         },
+      },
+    }),
+    Credentials({
+      type: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "Enter Email..." },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Enter Password...",
+        },
+      },
+      authorize(credentials, req) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+
+        return null;
       },
     }),
   ],
