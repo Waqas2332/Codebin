@@ -1,10 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Spinner from "@/components/Spinner";
 
 type LoginFormValues = {
   email: string;
@@ -13,6 +15,7 @@ type LoginFormValues = {
 
 const Login: React.FC = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -22,14 +25,21 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
+      setIsLoading(true);
       const res = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
       });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
+      if (res?.ok) {
+        router.push("/dashboard");
+      }
+      if (!res?.ok) {
+        toast.error("Invalid Credentials");
+      }
+    } catch (error: any) {
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,7 +83,12 @@ const Login: React.FC = () => {
               <span className="text-red-500 text-sm">Password is required</span>
             )}
           </div>
-          <button className="w-full btn-primary">Login</button>
+          <button
+            className="w-full btn-primary disabled:cursor-not-allowed"
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : "Login"}
+          </button>
         </form>
         {/* TODO add OR markup */}
         <div className="mt-4 gap-2 flex justify-between items-center">
