@@ -1,12 +1,14 @@
 import connectDB from "@/config/dbConnect";
 import User from "@/models/User";
-import Credentials, {
-  CredentialsProvider,
-} from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+("next-auth/providers/credentials");
 import { type AuthOptions } from "next-auth";
 
 export const authOptions: AuthOptions = {
+  pages: {
+    signIn: "/auth/login",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -19,8 +21,8 @@ export const authOptions: AuthOptions = {
         },
       },
     }),
-    Credentials({
-      type: "credentials",
+    CredentialsProvider({
+      name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "Enter Email..." },
         password: {
@@ -29,13 +31,24 @@ export const authOptions: AuthOptions = {
           placeholder: "Enter Password...",
         },
       },
-      authorize(credentials, req) {
+      async authorize(credentials, req) {
         const { email, password } = credentials as {
           email: string;
           password: string;
         };
-
-        return null;
+        try {
+          await connectDB();
+          const user = await User.findOne({ email: email });
+          if (!user) {
+            throw new Error("Invalid Credentials");
+          }
+          if (user.password !== password) {
+            throw new Error("Invalid Credentials");
+          }
+          return user;
+        } catch (error) {
+          throw new Error("Something went wrong!");
+        }
       },
     }),
   ],

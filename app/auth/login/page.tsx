@@ -20,8 +20,17 @@ const Login: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormValues>();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data); // Handle form submission here
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSignIn = async (provider: string) => {
@@ -64,9 +73,7 @@ const Login: React.FC = () => {
               <span className="text-red-500 text-sm">Password is required</span>
             )}
           </div>
-          <button type="submit" className="w-full btn-primary ">
-            Login
-          </button>
+          <button className="w-full btn-primary">Login</button>
         </form>
         {/* TODO add OR markup */}
         <div className="mt-4 gap-2 flex justify-between items-center">
