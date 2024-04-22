@@ -53,21 +53,20 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     // invoked on successfull sign in
-    async signIn({ profile }: any) {
-      console.log("yoo");
+    async signIn({ user }: any) {
       // 1. connect to database
       await connectDB();
       // 2. check if user exists
-      const userExists = await User.findOne({ email: profile!.email });
+      const userExists = await User.findOne({ email: user.email });
       // 3. if not, then add user to database
       if (!userExists) {
         // Truncate user name if tooo long
-        const username = profile!.name!.slice(0, 20);
+        const username = user.name!.slice(0, 20);
 
         await User.create({
-          email: profile!.email,
+          email: user.email,
           username: username,
-          image: profile?.avatar_url || profile?.picture,
+          image: user.image,
         });
       }
       // 4. return true to allow sign in
