@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Spinner from "@/components/Spinner";
+import axios from "axios";
 
 type RegisterFormValues = {
   firstName: string;
@@ -28,27 +27,28 @@ const RegisterPage = () => {
   } = useForm<RegisterFormValues>();
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
+    if (data.password !== data.c_password) {
+      toast.error("Passwords Must be Same");
+      return;
+    }
     try {
       setIsLoading(true);
-      const res = await signIn("credentials", {
-        redirect: false,
+      const res = await axios.post("/api/auth/register", {
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         password: data.password,
       });
-      if (res?.ok) {
-        router.push("/dashboard");
+      if (res.data.ok) {
+        router.push("/auth/login");
       }
-      if (!res?.ok) {
-        toast.error("Invalid Credentials");
-      }
-    } catch (error: any) {
     } finally {
       setIsLoading(false);
     }
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-1/2 mt-20 mb-20">
+      <div className="bg-white p-8 rounded shadow-md w-1/2 max-md:w-[90%] mt-20 mb-20">
         <h2 className="text-xl font-bold mb-4">Regsiter</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
@@ -72,7 +72,7 @@ const RegisterPage = () => {
               Last Name
             </label>
             <input
-              type="email"
+              type="text"
               id="lastName"
               {...register("lastName", { required: true })}
               className="w-full focus:outline-bgPrimary mt-1 p-2 border rounded"
