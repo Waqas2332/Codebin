@@ -20,6 +20,9 @@ const UserSchema = new Schema(
         ref: "DocumentFile",
       },
     ],
+    password: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

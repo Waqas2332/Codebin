@@ -39,13 +39,12 @@ export const authOptions: AuthOptions = {
         try {
           await connectDB();
           const user = await User.findOne({ email: email });
-          if (!user) {
+          console.log(user.password === password);
+          if (user && user.password === password) {
+            return user;
+          } else {
             throw new Error("Invalid Credentials");
           }
-          if (user.password !== password) {
-            throw new Error("Invalid Credentials");
-          }
-          return user;
         } catch (error) {
           throw new Error("Something went wrong!");
         }
@@ -55,7 +54,7 @@ export const authOptions: AuthOptions = {
   callbacks: {
     // invoked on successfull sign in
     async signIn({ profile }: any) {
-      console.log(profile);
+      console.log("yoo");
       // 1. connect to database
       await connectDB();
       // 2. check if user exists
