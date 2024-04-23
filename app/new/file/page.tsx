@@ -66,7 +66,7 @@ export default function page() {
           <textarea autoFocus ref={inputRef} className="mt-3 text-white" />
         </div>
       </form>
-      <Menu onSave={handleSave} />
+      <Menu onSave={handleSave} mode="new" />
       <ModalComponent
         isLoading={isLoading}
         isOpen={modalOpen}

@@ -54,6 +54,7 @@ export default function page({ params }: any) {
         </div>
       )}
       <Menu
+        mode="file"
         onSave={() => {
           toast.info("Edit for Saving the file");
         }}
