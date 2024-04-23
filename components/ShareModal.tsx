@@ -14,6 +14,7 @@ const ShareModal = ({ isOpen, onClose }: ShareModalProps) => {
       .writeText(window.location.href)
       .then(() => {
         toast.success("Link Copied");
+        onClose(false);
       })
       .catch((err) => {
         toast.error("Error in copying link");
