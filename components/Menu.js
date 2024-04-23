@@ -1,17 +1,15 @@
 import { IoSaveOutline } from "react-icons/io5";
-import { BiDuplicate } from "react-icons/bi";
 import { VscNewFile } from "react-icons/vsc";
 import { toast } from "react-toastify";
 import { FaRegEdit } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { FaRegStar } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
-import { usePathname, useRouter } from "next/navigation";
 import Icon from "./Icons";
 
 export default function Menu({ mode, onSave }) {
   const router = useRouter();
-  const pathname = usePathname();
 
   const NEW_FILE_ICONS = [
     { icon: <IoSaveOutline />, text: "Save", onClick: onSave },
