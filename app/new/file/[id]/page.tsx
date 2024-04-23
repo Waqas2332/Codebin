@@ -6,11 +6,17 @@ import { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { toast } from "react-toastify";
+import { IoMdArrowBack } from "react-icons/io";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function page({ params }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [value, setValue] = useState("");
   const [language, setLanguage] = useState("");
+  const session = useSession();
+  const router = useRouter();
+
   useEffect(() => {
     async function getData() {
       try {
@@ -31,6 +37,14 @@ export default function page({ params }: any) {
     getData();
   }, []);
 
+  function handleBtnClick() {
+    if (session) {
+      router.push("/dashboard");
+    } else {
+      router.push("/");
+    }
+  }
+
   return (
     <>
       {isLoading ? (
@@ -38,19 +52,27 @@ export default function page({ params }: any) {
           <Spinner />
         </div>
       ) : (
-        <div className="wrapper">
-          <div className="line-numbers">
-            {value.split("\n").map((_, index) => (
-              <div key={index}>{index + 1}</div>
-            ))}
+        <div className="pt-8">
+          <button
+            onClick={handleBtnClick}
+            className="ms-8  btn btn-outline w-28 text-white"
+          >
+            <IoMdArrowBack className="mr-3" /> Go Back
+          </button>
+          <div className="wrapper">
+            <div className="line-numbers">
+              {value.split("\n").map((_, index) => (
+                <div key={index}>{index + 1}</div>
+              ))}
+            </div>
+            <pre>
+              <code id="code-display">
+                <SyntaxHighlighter style={dracula} language={language}>
+                  {value}
+                </SyntaxHighlighter>
+              </code>
+            </pre>
           </div>
-          <pre>
-            <code id="code-display">
-              <SyntaxHighlighter style={dracula} language={language}>
-                {value}
-              </SyntaxHighlighter>
-            </code>
-          </pre>
         </div>
       )}
       <Menu

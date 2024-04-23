@@ -90,7 +90,7 @@ const Login: React.FC = () => {
             {isLoading ? <Spinner /> : "Login"}
           </button>
         </form>
-        {/* TODO add OR markup */}
+
         <div className="mt-4 gap-2 flex justify-between items-center">
           <button
             onClick={() => handleSignIn("google")}
