@@ -7,7 +7,6 @@ type ShareModalProps = {
   isOpen: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 };
-
 const ShareModal = ({ isOpen, onClose }: ShareModalProps) => {
   const copyToClipBoard = () => {
     navigator.clipboard
