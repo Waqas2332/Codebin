@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog } from "@headlessui/react";
 import { Dispatch, SetStateAction } from "react";
 import { IoCopyOutline } from "react-icons/io5";
