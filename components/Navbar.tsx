@@ -9,8 +9,6 @@ export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { data: session, status } = useSession();
 
-  console.log(session);
-
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 70;
@@ -19,7 +17,7 @@ export default function Nav() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [setIsScrolled]);
 
   const styles = {
     navbar: {
