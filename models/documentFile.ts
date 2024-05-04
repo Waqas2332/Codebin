@@ -11,7 +11,26 @@ const documentFileSchema = new mongoose.Schema({
   },
   programmingLanguage: {
     type: String,
+    enum: [
+      "python",
+      "javascript",
+      "jsx",
+      "html",
+      "css",
+      "cpp",
+      "java",
+      "typescript",
+      "tsx",
+      "go",
+      "rust",
+      "sql",
+      "kotlin",
+    ],
     required: [true, "Please Specify Programming Language"],
+  },
+  tags: {
+    type: [String],
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -19,12 +19,28 @@ function ModalComponent({
   const [description, setdescription] = useState("");
   const [programmingLanguage, setProgrammingLanguage] = useState("");
 
+  const AVAILABLE_LANGUAGES = [
+    "python",
+    "javascript",
+    "jsx",
+    "html",
+    "css",
+    "cpp",
+    "java",
+    "typescript",
+    "tsx",
+    "go",
+    "rust",
+    "sql",
+    "kotlin",
+  ];
+
   const handleSubmit = () => {
     if (description.trim() === "") {
       toast.error("Please Enter File Description");
       return;
     }
-    if (programmingLanguage.trim() === "") {
+    if (!AVAILABLE_LANGUAGES.includes(programmingLanguage)) {
       toast.error("Please Specify Programming Language");
       return;
     }
@@ -56,17 +72,26 @@ function ModalComponent({
                 className="block font-semibold"
               >
                 Programming Language
-                <small className="block">
-                  (Enter Full Name eg javascript , python)
-                </small>
               </label>
-              <input
-                type="text"
-                id="programmingLanguage"
+              <select
                 value={programmingLanguage}
+                className="border border-gray-300 w-full p-2 rounded focus:outline-bgPrimary"
                 onChange={(e) => setProgrammingLanguage(e.target.value)}
-                className="border border-gray-300 p-2 w-full rounded  focus:outline-bgPrimary"
-              />
+              >
+                <option selected>Select Programming Language</option>
+                <option value="cpp">C++</option>
+                <option value="css">CSS</option>
+                <option value="go">Go</option>
+                <option value="html">HTML</option>
+                <option value="javascript">Javascript</option>
+                <option value="java">Java</option>
+                <option value="jsx">JSX</option>
+                <option value="kotlin">Kotlin</option>
+                <option value="python">Python</option>
+                <option value="rust">Rust</option>
+                <option value="typescript">Typescript</option>
+                <option value="tsx">TSX</option>
+              </select>
             </div>
             <div className="flex justify-end">
               <button

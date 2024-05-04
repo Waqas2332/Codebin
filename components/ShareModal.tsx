@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
+import { usePathname } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import { IoCopyOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -10,9 +11,13 @@ type ShareModalProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
 };
 const ShareModal = ({ isOpen, onClose }: ShareModalProps) => {
+  const pathname = usePathname();
+
+  const URL = `localhost:3000/${pathname}`;
+
   const copyToClipBoard = () => {
     navigator.clipboard
-      .writeText(window.location.href)
+      .writeText(URL)
       .then(() => {
         toast.success("Link Copied");
         onClose(false);
@@ -35,7 +40,7 @@ const ShareModal = ({ isOpen, onClose }: ShareModalProps) => {
             <input
               className="w-[80%] focus:outline-none  py-3 ps-3 bg-transparent"
               type="text"
-              value={window.location.href}
+              value={URL}
             />
             <button
               onClick={copyToClipBoard}

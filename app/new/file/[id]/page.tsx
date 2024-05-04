@@ -45,6 +45,10 @@ export default function page({ params }: any) {
     }
   }
 
+  const customStyles = {
+    backgroundColor: "none",
+  };
+
   return (
     <>
       {isLoading ? (
