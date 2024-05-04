@@ -26,7 +26,6 @@ export default function Nav() {
       color: isScrolled ? "black" : "white",
     },
   };
-
   return (
     <header
       style={styles.navbar}

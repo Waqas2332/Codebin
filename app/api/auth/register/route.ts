@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const userName = data.firstName + data.lastName;
+    const userName = data.firstName + " " + data.lastName;
 
     const response = await User.create({
       email: data.email,
