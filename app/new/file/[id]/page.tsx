@@ -3,8 +3,8 @@ import Menu from "@/components/Menu";
 import Spinner from "@/components/Spinner";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { toast } from "react-toastify";
 import { IoMdArrowBack } from "react-icons/io";
 import { useSession } from "next-auth/react";
@@ -60,14 +60,13 @@ export default function page({ params }: any) {
             <IoMdArrowBack className="mr-3" /> Go Back
           </button>
           <div className="wrapper">
-            <div className="line-numbers">
-              {value.split("\n").map((_, index) => (
-                <div key={index}>{index + 1}</div>
-              ))}
-            </div>
             <pre>
               <code id="code-display">
-                <SyntaxHighlighter style={dracula} language={language}>
+                <SyntaxHighlighter
+                  showLineNumbers
+                  style={dracula}
+                  language={language}
+                >
                   {value}
                 </SyntaxHighlighter>
               </code>

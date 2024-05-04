@@ -16,18 +16,20 @@ export default function Menu({ mode, onSave }) {
 
   const NEW_FILE_ICONS = [
     { icon: <IoSaveOutline />, text: "Save", onClick: onSave },
-    {
-      icon: <FaRegEdit />,
-      text: "Edit",
-      onClick: () => {
-        toast.info("Save File for Editing");
-      },
-    },
+
     {
       icon: <IoShareSocialOutline />,
       text: "Share",
       onClick: () => {
-        toast.info("Save File for Sharing");
+        toast.info("Please Save the file first!");
+      },
+    },
+    {
+      icon: <FaRegStar />,
+      text: "Add To Star",
+      // TODO starr file
+      onClick: () => {
+        toast.info("Please Save the file first!");
       },
     },
   ];
@@ -40,18 +42,10 @@ export default function Menu({ mode, onSave }) {
         router.push("/new/file");
       },
     },
-    {
-      icon: <FaRegEdit />,
-      text: "Edit",
-      // TODO add editing logic
-      onClick: () => {
-        toast.info("Save File for Editing");
-      },
-    },
+
     {
       icon: <IoShareSocialOutline />,
       text: "Share",
-      // TODO add link sharing capability
       onClick: () => {
         setOpenShareModal(true);
       },
