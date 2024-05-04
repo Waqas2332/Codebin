@@ -2,6 +2,7 @@ import { Dialog } from "@headlessui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import Spinner from "./Spinner";
 import { toast } from "react-toastify";
+import { IoIosClose } from "react-icons/io";
 
 type ModalComponentProps = {
   isOpen: boolean;
@@ -9,6 +10,22 @@ type ModalComponentProps = {
   onSave: (data: { description: string; programmingLanguage: string }) => void;
   isLoading: boolean;
 };
+
+const AVAILABLE_LANGUAGES = [
+  "python",
+  "javascript",
+  "jsx",
+  "html",
+  "css",
+  "cpp",
+  "java",
+  "typescript",
+  "tsx",
+  "go",
+  "rust",
+  "sql",
+  "kotlin",
+];
 
 function ModalComponent({
   isOpen,
@@ -18,22 +35,25 @@ function ModalComponent({
 }: ModalComponentProps) {
   const [description, setdescription] = useState("");
   const [programmingLanguage, setProgrammingLanguage] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const AVAILABLE_LANGUAGES = [
-    "python",
-    "javascript",
-    "jsx",
-    "html",
-    "css",
-    "cpp",
-    "java",
-    "typescript",
-    "tsx",
-    "go",
-    "rust",
-    "sql",
-    "kotlin",
-  ];
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && inputValue.trim() !== "") {
+      event.preventDefault();
+      setTags([...tags, inputValue.trim()]);
+      setInputValue("");
+    }
+  };
+
+  const handleTagDelete = (tagToDelete: string) => {
+    const updatedTags = tags.filter((tag) => tag !== tagToDelete);
+    setTags(updatedTags);
+  };
 
   const handleSubmit = () => {
     if (description.trim() === "") {
@@ -51,7 +71,7 @@ function ModalComponent({
     <div className="">
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
-        <div className="flex rounded-md justify-center items-center fixed top-1/4 left-[50%] transform  -translate-x-1/2 w-1/3 py-8 max-md:2/3 max-lg:w-1/2 bg-white z-10">
+        <div className="flex rounded-md justify-center items-center fixed top-12 left-[50%] transform  -translate-x-1/2 w-1/3 py-8 max-md:2/3 max-lg:w-1/2 bg-white z-10">
           <div className="space-y-4 w-[90%] mx-auto">
             <div className="space-y-2">
               <label htmlFor="description" className="block font-semibold">
@@ -93,6 +113,41 @@ function ModalComponent({
                 <option value="tsx">TSX</option>
               </select>
             </div>
+
+            {/* Input for tags */}
+
+            <div>
+              <label htmlFor="tags" className="block font-semibold mb-2">
+                Add Tags...
+              </label>
+              <input
+                type="text"
+                id="tags"
+                value={inputValue}
+                onChange={handleInputChange}
+                onKeyDown={handleInputKeyDown}
+                className="border border-gray-300 w-full p-2 rounded focus:outline-bgPrimary"
+              />
+              <div className="flex flex-wrap gap-2 mt-2">
+                {tags.map((tag, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-200 rounded-full px-5 py-1 flex items-center gap-3"
+                  >
+                    <span className="mr-2">{tag}</span>
+                    <button
+                      onClick={() => handleTagDelete(tag)}
+                      className="bg-black rounded-full text-gray-200 hover:bg-red-500"
+                    >
+                      <IoIosClose />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Input for tags */}
+
             <div className="flex justify-end">
               <button
                 onClick={handleSubmit}
