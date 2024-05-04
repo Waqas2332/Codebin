@@ -10,9 +10,9 @@ export async function POST(request: NextRequest) {
       value: data.value,
       description: data.description,
       programmingLanguage: data.programmingLanguage,
+      tags: data.tags,
       user: data?.user?.id,
     });
-    console.log(response);
     return NextResponse.json(
       { message: "Data Entered Succesfully", id: response._id },
       { status: 201 }

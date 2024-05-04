@@ -24,6 +24,7 @@ export default function page() {
   }
 
   async function handleFormSave(data: {
+    tags: string[];
     description: string;
     programmingLanguage: string;
   }) {
@@ -33,11 +34,13 @@ export default function page() {
     }
 
     setIsLoading(true);
+    console.log(data);
     try {
       const response = await axios.post("/api/document", {
         value: inputRef!.current!.value,
         description: data.description,
         programmingLanguage: data.programmingLanguage.toLowerCase(),
+        tags: data.tags,
         user: session ? session.user : null,
       });
       if (response.status === 201) {

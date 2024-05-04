@@ -7,7 +7,11 @@ import { IoIosClose } from "react-icons/io";
 type ModalComponentProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  onSave: (data: { description: string; programmingLanguage: string }) => void;
+  onSave: (data: {
+    description: string;
+    programmingLanguage: string;
+    tags: string[];
+  }) => void;
   isLoading: boolean;
 };
 
@@ -57,15 +61,20 @@ function ModalComponent({
 
   const handleSubmit = () => {
     if (description.trim() === "") {
-      toast.error("Please Enter File Description");
+      toast.warning("Please Enter File Description");
       return;
     }
     if (!AVAILABLE_LANGUAGES.includes(programmingLanguage)) {
-      toast.error("Please Specify Programming Language");
+      toast.warning("Please Specify Programming Language");
       return;
     }
 
-    onSave({ description, programmingLanguage });
+    if (tags.length === 0) {
+      toast.warning("At least add 1 tag");
+      return;
+    }
+
+    onSave({ description, programmingLanguage, tags });
   };
   return (
     <div className="">
@@ -118,7 +127,7 @@ function ModalComponent({
 
             <div>
               <label htmlFor="tags" className="block font-semibold mb-2">
-                Add Tags...
+                Add Tags... <small>( Press Enter For Saving tags )</small>
               </label>
               <input
                 type="text"
