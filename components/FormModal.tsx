@@ -95,7 +95,6 @@ function ModalComponent({
               />
             </div>
             <div className="space-y-2">
-              {/* TODO Have to made a dropdown for selective programming language */}
               <label
                 htmlFor="programmingLanguage"
                 className="block font-semibold"

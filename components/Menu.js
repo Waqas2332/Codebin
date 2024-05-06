@@ -30,7 +30,6 @@ export default function Menu({ mode, onSave, onStar, isStarred }) {
     {
       icon: <FaRegStar />,
       text: "Add To Favourites",
-      // TODO starr file
       onClick: () => {
         toast.info("Please Save the file first!");
       },

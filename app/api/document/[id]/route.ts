@@ -39,6 +39,9 @@ export async function DELETE(request: NextRequest, context: any) {
       );
     }
     const response = await DocumentFile.findByIdAndDelete(context.params.id);
+
+    // TODO remove deleted files from starred folders
+
     return NextResponse.json(
       {
         message: "Deleted Succesfully",

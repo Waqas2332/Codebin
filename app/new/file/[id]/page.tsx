@@ -28,7 +28,6 @@ export default function page({ params }: any) {
           toast.error("Document doesn't exists");
           return;
         }
-        // TODO has to made and replace with error page
         toast.error("Couldn't Fetch Document.Try again later");
       } finally {
         setIsLoading(false);
