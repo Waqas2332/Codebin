@@ -27,7 +27,7 @@ export async function POST(request: NextRequest, context: any) {
     await user.save();
 
     return NextResponse.json(
-      { message: "Added To Favourites", ok: true },
+      { message: "Added To Favourites", ok: true, data: file },
       { status: 201 }
     );
   } catch (error) {

@@ -1,18 +1,21 @@
+"use client";
+
 import { IoSaveOutline } from "react-icons/io5";
 import { VscNewFile } from "react-icons/vsc";
 import { toast } from "react-toastify";
-import { FaRegEdit } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
-import { FaRegStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 import Icon from "./Icons";
 import ShareModal from "./ShareModal";
 import { useState } from "react";
 
-export default function Menu({ mode, onSave, onStar }) {
+export default function Menu({ mode, onSave, onStar, isStarred }) {
   const router = useRouter();
   const [openShareModal, setOpenShareModal] = useState(false);
+
+  console.log(isStarred);
 
   const NEW_FILE_ICONS = [
     { icon: <IoSaveOutline />, text: "Save", onClick: onSave },
@@ -51,8 +54,8 @@ export default function Menu({ mode, onSave, onStar }) {
       },
     },
     {
-      icon: <FaRegStar />,
-      text: "Add To Favourites",
+      icon: isStarred ? <FaStar /> : <FaRegStar />,
+      text: isStarred ? "Remove From Favorites" : "Add To Favourites",
       onClick: onStar,
     },
   ];

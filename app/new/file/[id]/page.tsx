@@ -14,6 +14,7 @@ export default function page({ params }: any) {
   const [isLoading, setIsLoading] = useState(true);
   const [file, setFile] = useState<any>();
   const { data: session }: { data: any } = useSession();
+  const [isStarred, setIsStarred] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,6 +37,18 @@ export default function page({ params }: any) {
     getData();
   }, []);
 
+  // Checking if current user has already starred file or not
+  let checkStar: any;
+
+  useEffect(() => {
+    if (file && session) {
+      checkStar = file.starUsers.find((user: any) => user === session.user.id);
+      if (checkStar) {
+        setIsStarred(true);
+      }
+    }
+  }, [file]);
+
   function handleBtnClick() {
     if (session) {
       router.push("/dashboard");
@@ -45,7 +58,8 @@ export default function page({ params }: any) {
   }
 
   async function handleStarFile() {
-    console.log("first");
+    // Starring File
+
     if (!session) {
       toast.warning("Please login to add to favourites");
       return;
@@ -56,19 +70,25 @@ export default function page({ params }: any) {
       return;
     }
 
-    try {
-      const response = await axios.post(`/api/document/${params.id}/starred`, {
-        userId: file.user,
-      });
+    if (!isStarred) {
+      try {
+        const response = await axios.post(
+          `/api/document/${params.id}/starred`,
+          {
+            userId: session.user.id,
+          }
+        );
 
-      console.log(response);
-
-      if (response.data.ok) {
-        toast.success("Added To Favourites");
+        if (response.data.ok) {
+          toast.success("Added To Favourites");
+          setFile(response.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Couldn't add to favorites");
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Couldn't add to favorites");
+    } else {
+      toast.info("Already Added to favourites");
     }
   }
 
@@ -101,7 +121,12 @@ export default function page({ params }: any) {
           </div>
         </div>
       )}
-      <Menu mode="file" onSave={() => {}} onStar={handleStarFile} />
+      <Menu
+        mode="file"
+        onSave={() => {}}
+        onStar={handleStarFile}
+        isStarred={isStarred}
+      />
     </>
   );
 }
