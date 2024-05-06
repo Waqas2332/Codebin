@@ -1,8 +1,9 @@
+import SavedFiles from "@/components/SavedFiles";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 const DashBoardPage = async () => {
-  const session = await getServerSession();
+  const session: any = await getServerSession();
 
   if (!session) {
     redirect("/auth/login");
@@ -16,6 +17,7 @@ const DashBoardPage = async () => {
           Welcome Back, <span className="italic">{session?.user?.name}</span>
         </h2>
       </div>
+      <SavedFiles />
     </section>
   );
 };
