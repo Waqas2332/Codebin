@@ -10,7 +10,7 @@ const DashBoardPage = async () => {
   }
 
   return (
-    <section className="text-white w-[90%] max-md:w-[98%] mx-auto p-6">
+    <section className="w-full">
       <div>{/* TODO implement search */}</div>
       <SavedFiles />
     </section>

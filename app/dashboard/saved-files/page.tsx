@@ -3,14 +3,14 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
+import Spinner from "@/components/Spinner";
 import { FaRegStar } from "react-icons/fa";
 import { PROGRAMMING_LANGUAGES } from "@/utils/data";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const SavedFiles = () => {
+const SavedFilesPage = () => {
   const [files, setFiles] = useState<any>([]);
   const [error, setError] = useState("");
   const {
@@ -21,7 +21,7 @@ const SavedFiles = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchSavedFiles = async () => {
+    const fetchSavedFilesPage = async () => {
       if (status !== "loading") {
         setError("");
         try {
@@ -39,7 +39,7 @@ const SavedFiles = () => {
       }
     };
 
-    fetchSavedFiles();
+    fetchSavedFilesPage();
   }, [status]);
 
   if (status === "unauthenticated" && error) {
@@ -67,13 +67,11 @@ const SavedFiles = () => {
     }
   };
 
-  const visibleFiles = files.slice(0, 4);
-
   return (
     <>
       <h2 className="text-3xl font-semibold">Your Files</h2>
       <div className="w-full mt-4 grid md:grid-cols-2 grid-cols-1 gap-4">
-        {visibleFiles.map((file: any) => (
+        {files.map((file: any) => (
           <div
             key={file._id}
             className="bg-[#282A36]  px-6 py-3 rounded-xl leading-none "
@@ -114,19 +112,8 @@ const SavedFiles = () => {
           </div>
         ))}
       </div>
-
-      {files.length > 4 && (
-        <div className="w-full flex justify-center items-center mt-4">
-          <button
-            className="btn w-32 scale"
-            onClick={() => router.push("/dashboard/saved-files")}
-          >
-            View All
-          </button>
-        </div>
-      )}
     </>
   );
 };
 
-export default SavedFiles;
+export default SavedFilesPage;
