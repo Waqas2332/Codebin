@@ -51,6 +51,11 @@ export default function page({ params }: any) {
       return;
     }
 
+    if (session.user.id === file.user) {
+      toast.warning("Can't add your own file to favorites");
+      return;
+    }
+
     try {
       const response = await axios.post(`/api/document/${params.id}/starred`, {
         userId: file.user,
