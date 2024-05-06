@@ -17,6 +17,31 @@ export async function POST(request: NextRequest, context: any) {
     }
 
     const file = await DocumentFile.findById(context.params.id);
+
+    const checkUser = file.starUsers.find(
+      (user: any) => user.toString() === userId
+    );
+
+    if (checkUser) {
+      file.starCount--;
+      file.starUsers = file.starUsers.filter(
+        (user: any) => user.toString() !== userId
+      );
+      await file.save();
+
+      const user = await User.findById(userId);
+      user.starredFiles = user.starredFiles.filter(
+        (f: any) => f.toString() !== file._id.toString()
+      );
+
+      await user.save();
+
+      return NextResponse.json(
+        { message: "Remove From Favorites", ok: true, data: file },
+        { status: 201 }
+      );
+    }
+
     file.starCount++;
     file.starUsers.push(userId);
 

@@ -45,6 +45,8 @@ export default function page({ params }: any) {
       checkStar = file.starUsers.find((user: any) => user === session.user.id);
       if (checkStar) {
         setIsStarred(true);
+      } else {
+        setIsStarred(false);
       }
     }
   }, [file]);
@@ -70,25 +72,18 @@ export default function page({ params }: any) {
       return;
     }
 
-    if (!isStarred) {
-      try {
-        const response = await axios.post(
-          `/api/document/${params.id}/starred`,
-          {
-            userId: session.user.id,
-          }
-        );
+    try {
+      const response = await axios.post(`/api/document/${params.id}/starred`, {
+        userId: session.user.id,
+      });
 
-        if (response.data.ok) {
-          toast.success("Added To Favourites");
-          setFile(response.data.data);
-        }
-      } catch (error) {
-        console.log(error);
-        toast.error("Couldn't add to favorites");
+      if (response.data.ok) {
+        toast.success(response.data.message);
+        setFile(response.data.data);
       }
-    } else {
-      toast.info("Already Added to favourites");
+    } catch (error) {
+      console.log(error);
+      toast.error("Couldn't add to favorites");
     }
   }
 
