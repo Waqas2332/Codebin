@@ -11,12 +11,7 @@ const DashBoardPage = async () => {
 
   return (
     <section className="text-white w-[90%] max-md:w-[98%] mx-auto p-6">
-      <div>
-        {/* TODO implement search */}
-        <h2 className="text-3xl">
-          Welcome Back, <span className="italic">{session?.user?.name}</span>
-        </h2>
-      </div>
+      <div>{/* TODO implement search */}</div>
       <SavedFiles />
     </section>
   );

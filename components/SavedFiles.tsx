@@ -4,6 +4,8 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import { FaRegStar } from "react-icons/fa";
+import { PROGRAMMING_LANGUAGES } from "@/utils/data";
 
 const SavedFiles = () => {
   const [files, setFiles] = useState<any>([]);
@@ -48,12 +50,51 @@ const SavedFiles = () => {
     );
   }
 
+  const visibleFiles = files.slice(0, 4);
+
   return (
-    <div>
-      {files.map((file) => (
-        <div key={file._id}>{file.description}</div>
-      ))}
-    </div>
+    <>
+      <h2 className="text-3xl font-semibold">Your Files</h2>
+      <div className="w-full mt-4 grid md:grid-cols-2 grid-cols-1 gap-4">
+        {visibleFiles.map((file: any) => (
+          <div
+            key={file._id}
+            className="bg-[#282A36]  px-6 py-3 rounded-xl leading-none cursor-pointer"
+          >
+            <h2 className="flex justify-between">
+              <span className="italic">{file.description}</span>
+              <span className="flex gap-1">
+                <FaRegStar className="cursor-pointer" /> {0}
+              </span>
+            </h2>
+            <div className="flex gap-1 mt-4">
+              <img
+                className="w-6"
+                src={
+                  PROGRAMMING_LANGUAGES.find(
+                    (lang) => lang.language === file.programmingLanguage
+                  )?.image?.src
+                }
+                alt=""
+              />
+              <p>
+                {
+                  PROGRAMMING_LANGUAGES.find(
+                    (lang) => lang.language === file.programmingLanguage
+                  )?.name
+                }
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {files.length > 4 && (
+        <div className="w-full flex justify-center items-center mt-4">
+          <button className="btn w-32 scale">View All</button>
+        </div>
+      )}
+    </>
   );
 };
 
