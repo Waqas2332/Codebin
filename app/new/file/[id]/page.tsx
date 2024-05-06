@@ -12,17 +12,16 @@ import { useRouter } from "next/navigation";
 
 export default function page({ params }: any) {
   const [isLoading, setIsLoading] = useState(true);
-  const [value, setValue] = useState("");
-  const [language, setLanguage] = useState("");
-  const session = useSession();
+  const [file, setFile] = useState<any>();
+  const { data: session }: { data: any } = useSession();
   const router = useRouter();
 
   useEffect(() => {
     async function getData() {
       try {
         const response = await axios.get(`/api/document/${params.id}`);
-        setValue(response.data.value);
-        setLanguage(response.data.programmingLanguage);
+        console.log(response);
+        setFile(response.data.data);
       } catch (error: any) {
         if (error.response.status === 404) {
           toast.error("Document doesn't exists");
@@ -42,6 +41,29 @@ export default function page({ params }: any) {
       router.push("/dashboard");
     } else {
       router.push("/");
+    }
+  }
+
+  async function handleStarFile() {
+    console.log("first");
+    if (!session) {
+      toast.warning("Please login to add to favourites");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`/api/document/${params.id}/starred`, {
+        userId: file.user,
+      });
+
+      console.log(response);
+
+      if (response.data.ok) {
+        toast.success("Added To Favourites");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Couldn't add to favorites");
     }
   }
 
@@ -65,21 +87,16 @@ export default function page({ params }: any) {
                 <SyntaxHighlighter
                   showLineNumbers
                   style={dracula}
-                  language={language}
+                  language={file.programmingLanguage}
                 >
-                  {value}
+                  {file.value}
                 </SyntaxHighlighter>
               </code>
             </pre>
           </div>
         </div>
       )}
-      <Menu
-        mode="file"
-        onSave={() => {
-          toast.info("Edit for Saving the file");
-        }}
-      />
+      <Menu mode="file" onSave={() => {}} onStar={handleStarFile} />
     </>
   );
 }

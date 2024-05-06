@@ -10,7 +10,7 @@ import Icon from "./Icons";
 import ShareModal from "./ShareModal";
 import { useState } from "react";
 
-export default function Menu({ mode, onSave }) {
+export default function Menu({ mode, onSave, onStar }) {
   const router = useRouter();
   const [openShareModal, setOpenShareModal] = useState(false);
 
@@ -26,7 +26,7 @@ export default function Menu({ mode, onSave }) {
     },
     {
       icon: <FaRegStar />,
-      text: "Add To Star",
+      text: "Add To Favourites",
       // TODO starr file
       onClick: () => {
         toast.info("Please Save the file first!");
@@ -52,9 +52,8 @@ export default function Menu({ mode, onSave }) {
     },
     {
       icon: <FaRegStar />,
-      text: "Add To Star",
-      // TODO starr file
-      onClick: () => {},
+      text: "Add To Favourites",
+      onClick: onStar,
     },
   ];
 

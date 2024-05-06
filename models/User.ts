@@ -14,12 +14,11 @@ const UserSchema = new Schema(
     image: {
       type: String,
     },
-    starredFiles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "DocumentFile",
-      },
-    ],
+    starredFiles: {
+      type: [Schema.Types.ObjectId],
+      ref: "DocumentFile",
+    },
+
     password: {
       type: String,
     },

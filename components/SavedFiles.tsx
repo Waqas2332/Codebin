@@ -72,6 +72,9 @@ const SavedFiles = () => {
   return (
     <>
       <h2 className="text-3xl font-semibold">Your Files</h2>
+      {files.length === 0 && (
+        <p className="text-xl text-center">You haven't saved any file yet.</p>
+      )}
       <div className="w-full mt-4 grid md:grid-cols-2 grid-cols-1 gap-4">
         {visibleFiles.map((file: any) => (
           <div
@@ -81,7 +84,7 @@ const SavedFiles = () => {
             <h2 className="flex justify-between">
               <span className="italic cursor-pointer">{file.description}</span>
               <span className="flex gap-1">
-                <FaRegStar className="cursor-pointer" /> {file.starCount}
+                <FaRegStar /> {file.starCount}
               </span>
             </h2>
             <div className="flex gap-1 mt-4 items-center justify-between">

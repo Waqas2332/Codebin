@@ -18,8 +18,7 @@ export async function GET(request: NextRequest, context: any) {
     return NextResponse.json(
       {
         message: "Data Fetched Succesfully",
-        value: response.value,
-        programmingLanguage: response.programmingLanguage,
+        data: response,
       },
       { status: 200 }
     );
