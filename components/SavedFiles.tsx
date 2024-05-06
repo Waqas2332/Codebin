@@ -81,7 +81,7 @@ const SavedFiles = () => {
             <h2 className="flex justify-between">
               <span className="italic cursor-pointer">{file.description}</span>
               <span className="flex gap-1">
-                <FaRegStar className="cursor-pointer" /> {0}
+                <FaRegStar className="cursor-pointer" /> {file.starCount}
               </span>
             </h2>
             <div className="flex gap-1 mt-4 items-center justify-between">
