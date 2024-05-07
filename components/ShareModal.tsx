@@ -13,7 +13,7 @@ type ShareModalProps = {
 const ShareModal = ({ isOpen, onClose }: ShareModalProps) => {
   const pathname = usePathname();
 
-  const URL = `localhost:3000/${pathname}`;
+  const URL = `https://codebin-jet.vercel.app/${pathname}`;
 
   const copyToClipBoard = () => {
     navigator.clipboard
