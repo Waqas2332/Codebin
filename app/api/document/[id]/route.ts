@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/config/dbConnect";
 import DocumentFile from "@/models/documentFile";
+import User from "@/models/User";
 
 export async function GET(request: NextRequest, context: any) {
   try {
@@ -38,9 +39,12 @@ export async function DELETE(request: NextRequest, context: any) {
         { status: 404 }
       );
     }
-    const response = await DocumentFile.findByIdAndDelete(context.params.id);
+    await DocumentFile.findByIdAndDelete(context.params.id);
 
-    // TODO remove deleted files from starred folders
+    await User.updateMany(
+      { starredFiles: context.params.id },
+      { $pull: { starredFiles: context.params.id } }
+    );
 
     return NextResponse.json(
       {
