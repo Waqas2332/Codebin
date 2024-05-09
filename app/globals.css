@@ -32,3 +32,51 @@
 .btn-primary.scale:hover {
   @apply scale-110;
 }
+
+/* Animations */
+
+.hero-heading {
+  animation: slide-down 1s ease-in-out forwards;
+}
+
+.hero-subheading {
+  animation: slide-left 1s ease-in-out forwards;
+}
+
+.hero-btn {
+  animation: slide-up 1s ease-in-out forwards;
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
