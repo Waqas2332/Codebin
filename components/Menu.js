@@ -3,7 +3,7 @@
 import { IoSaveOutline } from "react-icons/io5";
 import { VscNewFile } from "react-icons/vsc";
 import { toast } from "react-toastify";
-import { IoShareSocialOutline } from "react-icons/io5";
+import { IoShareSocialOutline, IoCopyOutline } from "react-icons/io5";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,7 @@ import Icon from "./Icons";
 import ShareModal from "./ShareModal";
 import { useState } from "react";
 
-export default function Menu({ mode, onSave, onStar, isStarred }) {
+export default function Menu({ mode, onSave, onStar, isStarred, onCopy }) {
   const router = useRouter();
   const [openShareModal, setOpenShareModal] = useState(false);
 
@@ -43,6 +43,12 @@ export default function Menu({ mode, onSave, onStar, isStarred }) {
       onClick: () => {
         router.push("/new/file");
       },
+    },
+
+    {
+      icon: <IoCopyOutline />,
+      text: "Copy",
+      onClick: onCopy,
     },
 
     {

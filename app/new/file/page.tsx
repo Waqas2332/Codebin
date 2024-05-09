@@ -74,7 +74,13 @@ export default function page() {
           />
         </div>
       </form>
-      <Menu onSave={handleSave} mode="new" onStar={() => {}} isStarred={0} />
+      <Menu
+        onSave={handleSave}
+        onCopy={() => {}}
+        mode="new"
+        onStar={() => {}}
+        isStarred={0}
+      />
       <ModalComponent
         isLoading={isLoading}
         isOpen={modalOpen}

@@ -86,6 +86,17 @@ export default function page({ params }: any) {
     }
   }
 
+  function copyCode() {
+    navigator.clipboard
+      .writeText(file.value)
+      .then(() => {
+        toast.success("Copied code to clipboard");
+      })
+      .catch((err) => {
+        toast.error("Error in copying link");
+      });
+  }
+
   return (
     <>
       {isLoading ? (
@@ -120,6 +131,7 @@ export default function page({ params }: any) {
         onSave={() => {}}
         onStar={handleStarFile}
         isStarred={isStarred}
+        onCopy={copyCode}
       />
     </>
   );
