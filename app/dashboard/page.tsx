@@ -1,4 +1,5 @@
 import SavedFiles from "@/components/SavedFiles";
+import SearchFiles from "@/components/SearchFiles";
 import StarredFiles from "@/components/StarredFiles";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -12,7 +13,7 @@ const DashBoardPage = async () => {
 
   return (
     <section className="w-full">
-      <div>{/* TODO implement search */}</div>
+      <SearchFiles />
       <SavedFiles />
       <StarredFiles />
     </section>

@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const SavedFiles = () => {
+const SearchFiles = () => {
   const [files, setFiles] = useState<any>([]);
   const [error, setError] = useState("");
   const {
@@ -21,12 +21,12 @@ const SavedFiles = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchSavedFiles = async () => {
+    const fetchNewFiles = async () => {
       if (status !== "loading") {
         setError("");
         try {
           const response = await axios.get(
-            `/api/document/user/${session.user.id}`
+            `/api/document/user/${session.user.id}/except-user`
           );
           if (response.data.ok) {
             setFiles(response.data.data);
@@ -39,7 +39,7 @@ const SavedFiles = () => {
       }
     };
 
-    fetchSavedFiles();
+    fetchNewFiles();
   }, [status]);
 
   if (status === "unauthenticated" && error) {
@@ -54,26 +54,13 @@ const SavedFiles = () => {
     );
   }
 
-  const handleDeleteFile = async (id: string) => {
-    try {
-      const response = await axios.delete(`/api/document/${id}`);
-      console.log(response);
-      if (response.data.ok) {
-        setFiles((prev: any) => prev.filter((file: any) => file._id !== id));
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Couldn't Delete File");
-    }
-  };
-
   const visibleFiles = files.slice(0, 4);
 
   return (
     <>
-      <h2 className="text-3xl font-semibold mt-4">Your Files</h2>
+      <h2 className="text-3xl font-semibold">Explore New Snippets</h2>
       {files.length === 0 && (
-        <p className="text-xl text-center">You haven't saved any file yet.</p>
+        <p className="text-xl text-center">No Data Found</p>
       )}
       <div className="w-full mt-4 grid md:grid-cols-2 grid-cols-1 gap-4">
         {visibleFiles.map((file: any) => (
@@ -111,30 +98,12 @@ const SavedFiles = () => {
                   }
                 </p>
               </div>
-              <div>
-                <MdDelete
-                  className="cursor-pointer"
-                  size={20}
-                  onClick={() => handleDeleteFile(file._id)}
-                />
-              </div>
             </div>
           </div>
         ))}
       </div>
-
-      {files.length > 4 && (
-        <div className="w-full flex justify-center items-center mt-4">
-          <button
-            className="btn w-32 scale"
-            onClick={() => router.push("/dashboard/saved-files")}
-          >
-            View All
-          </button>
-        </div>
-      )}
     </>
   );
 };
 
-export default SavedFiles;
+export default SearchFiles;
