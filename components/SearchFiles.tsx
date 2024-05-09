@@ -7,12 +7,14 @@ import Spinner from "./Spinner";
 import { FaRegStar } from "react-icons/fa";
 import { PROGRAMMING_LANGUAGES } from "@/utils/data";
 import { useRouter } from "next/navigation";
-import { MdDelete } from "react-icons/md";
-import { toast } from "react-toastify";
+import { IoIosSearch } from "react-icons/io";
+import SearchModal from "./SearchModal";
 
 const SearchFiles = () => {
   const [files, setFiles] = useState<any>([]);
   const [error, setError] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
   const {
     data: session,
     status,
@@ -56,9 +58,20 @@ const SearchFiles = () => {
 
   const visibleFiles = files.slice(0, 4);
 
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
+
   return (
     <>
-      <h2 className="text-3xl font-semibold">Explore New Snippets</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-semibold">Explore New Snippets</h2>
+        <IoIosSearch size={28} className="cursor-pointer" onClick={openModal} />
+      </div>
       {files.length === 0 && (
         <p className="text-xl text-center">No Data Found</p>
       )}
@@ -102,6 +115,8 @@ const SearchFiles = () => {
           </div>
         ))}
       </div>
+
+      <SearchModal isOpen={modalOpen} onClose={closeModal} files={files} />
     </>
   );
 };
