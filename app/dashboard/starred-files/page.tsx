@@ -3,14 +3,13 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import Spinner from "@/components/Spinner";
+import { FaStar } from "react-icons/fa";
 import { PROGRAMMING_LANGUAGES } from "@/utils/data";
 import { useRouter } from "next/navigation";
-import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const StarredFiles = () => {
+const StarredFilesPage = () => {
   const [files, setFiles] = useState<any>([]);
   const [error, setError] = useState("");
   const {
@@ -70,8 +69,6 @@ const StarredFiles = () => {
     }
   };
 
-  const visibleFiles = files.slice(0, 4);
-
   return (
     <>
       <h2 className="text-3xl font-semibold mt-8">Starred Files</h2>
@@ -79,7 +76,7 @@ const StarredFiles = () => {
         <p className="text-xl text-center">You haven't starred any file yet.</p>
       )}
       <div className="w-full mt-4 grid md:grid-cols-2 grid-cols-1 gap-4">
-        {visibleFiles.map((file: any) => (
+        {files.map((file: any) => (
           <div
             key={file._id}
             className="bg-[#282A36]  px-6 py-3 rounded-xl leading-none "
@@ -126,7 +123,7 @@ const StarredFiles = () => {
         <div className="w-full flex justify-center items-center mt-4">
           <button
             className="btn w-32 scale"
-            onClick={() => router.push("/dashboard/starred-files")}
+            onClick={() => router.push("/dashboard/saved-files")}
           >
             View All
           </button>
@@ -136,4 +133,4 @@ const StarredFiles = () => {
   );
 };
 
-export default StarredFiles;
+export default StarredFilesPage;
