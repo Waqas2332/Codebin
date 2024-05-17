@@ -27,6 +27,21 @@ const RegisterPage = () => {
   } = useForm<RegisterFormValues>();
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
+    if (data.firstName.trim() === "") {
+      toast.error("Please enter Your first name");
+      return;
+    }
+
+    if (data.lastName.trim() === "") {
+      toast.error("Please enter Your last name");
+      return;
+    }
+
+    if (data.email.trim() === "") {
+      toast.error("Please enter your email");
+      return;
+    }
+
     if (data.password !== data.c_password) {
       toast.error("Passwords Must be Same");
       return;
@@ -41,7 +56,11 @@ const RegisterPage = () => {
       });
       if (res.data.ok) {
         router.push("/auth/login");
+      } else {
+        toast.error(res.data.message);
       }
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     } finally {
       setIsLoading(false);
     }

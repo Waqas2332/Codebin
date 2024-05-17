@@ -38,6 +38,7 @@ const Login: React.FC = () => {
         toast.error("Invalid Credentials");
       }
     } catch (error: any) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

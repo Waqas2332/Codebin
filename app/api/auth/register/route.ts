@@ -24,7 +24,10 @@ export async function POST(request: NextRequest) {
       password: data.password,
     });
 
-    return NextResponse.json({ ok: true }, { status: 201 });
+    return NextResponse.json(
+      { ok: true, message: "Registered Successfully" },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
   }
