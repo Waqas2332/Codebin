@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, context: any) {
     }
 
     const documents = await DocumentFile.find({ user: { $ne: userId } })
-      .sort({ createdAt: "asc" })
+      .sort({ createdAt: "desc" })
       .exec();
 
     console.log(documents);

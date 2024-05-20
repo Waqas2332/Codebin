@@ -77,7 +77,12 @@ const SavedFilesPage = () => {
             className="bg-[#282A36]  px-6 py-3 rounded-xl leading-none "
           >
             <h2 className="flex justify-between">
-              <span className="italic cursor-pointer">{file.description}</span>
+              <span
+                className="italic cursor-pointer"
+                onClick={() => router.push(`/new/file/${file._id}`)}
+              >
+                {file.description}
+              </span>
               <span className="flex gap-1">
                 <FaRegStar /> {file.starCount}
               </span>
