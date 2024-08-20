@@ -11,7 +11,7 @@ const connectDB = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI as string);
+    await mongoose.connect("mongodb+srv://devwaqas232:devwaqas232@cluster0.rslnq.mongodb.net/");
     connected = true;
     console.log("Mongodb Connected!");
   } catch (error) {
